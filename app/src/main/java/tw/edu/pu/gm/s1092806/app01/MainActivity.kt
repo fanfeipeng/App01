@@ -1,0 +1,107 @@
+package tw.edu.pu.gm.s1092806.app01
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener
+    , GestureDetector.OnDoubleTapListener, View.OnTouchListener{
+
+    lateinit var gDetector: GestureDetector
+    var PictureNo:Int = 0
+    var TotalPictures:Int = 3
+
+    fun ShowPicture() {
+        when (PictureNo) {
+            0 -> img.setImageResource(R.drawable.a1)
+            1 -> img.setImageResource(R.drawable.a2)
+            2 -> img.setImageResource(R.drawable.a3)
+        }
+        txv.text = PictureNo.toString()}
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        gDetector = GestureDetector(this, this)
+        img.setOnTouchListener(this)
+    }
+
+    /*
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+
+        gDetector.onTouchEvent(event)
+        return true
+    }
+    */
+
+
+    override fun onTouch(p0: View?, event: MotionEvent?): Boolean {
+        gDetector.onTouchEvent(event)
+        return true
+    }
+
+
+    override fun onDown(p0: MotionEvent?): Boolean {
+        return true
+    }
+
+    override fun onShowPress(p0: MotionEvent?) {
+
+    }
+
+    override fun onSingleTapUp(p0: MotionEvent?): Boolean {
+        return true
+
+    }
+
+    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+
+        return true
+
+    }
+
+    override fun onLongPress(p0: MotionEvent?) {
+
+    }
+
+    override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+        if (e1!!.getX() < e2!!.getX()){
+            PictureNo++
+            if (PictureNo == TotalPictures) {
+                PictureNo = 0
+            }
+        }
+        else{
+            PictureNo--;
+            if (PictureNo < 0) {PictureNo = TotalPictures - 1 }
+        }
+        ShowPicture()
+        return true
+
+    }
+
+    override fun onSingleTapConfirmed(p0: MotionEvent?): Boolean {
+
+        return true
+
+    }
+
+    override fun onDoubleTap(p0: MotionEvent?): Boolean {
+
+        return true
+
+    }
+
+    override fun onDoubleTapEvent(p0: MotionEvent?): Boolean {
+        return true
+
+    }
+
+
+
+
+}
